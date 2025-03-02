@@ -4,7 +4,8 @@ def mostrar_menu():
     print("2. Eliminar tarea")
     print("3. Ver tareas")
     print("4. Marcar tarea como completada")
-    print("5. Salir")
+    print("5. Eliminar tareas completadas")
+    print("6. Salir")
 
 def agregar_tarea(tareas):
     tarea = input("Ingrese la tarea: ").strip()
@@ -49,6 +50,13 @@ def marcar_completada(tareas):
     except ValueError:
         print("Entrada no válida.")
 
+def eliminar_tareas_completadas(tareas):
+    tareas_completadas = [tarea for tarea in tareas if tarea["completada"]]
+    if tareas_completadas:
+        tareas[:] = [tarea for tarea in tareas if not tarea["completada"]]
+        print(f"Se han eliminado {len(tareas_completadas)} tarea(s) completada(s).")
+    else:
+        print("No hay tareas completadas para eliminar.")
 
 def main():
     tareas = []
@@ -64,6 +72,8 @@ def main():
             ver_tareas(tareas)
         elif opcion == "4":
             marcar_completada(tareas)
+        elif opcion == "5":
+            eliminar_tareas_completadas(tareas)
         else:
             print("Opción no válida. Por favor intente de nuevo.")
 
