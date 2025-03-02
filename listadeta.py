@@ -6,12 +6,13 @@ def mostrar_menu():
     print("4. Salir")
 
 def agregar_tarea(tareas):
-    tarea = input("Ingrese la tarea: ")
+    tarea = input("Ingrese la tarea: ").strip()
     if tarea:
-        tareas.append(tarea)
+        tareas.append({"tarea": tarea, "completada": False})
         print(f"Tarea '{tarea}' agregada.")
     else:
         print("No se ingresó ninguna tarea.")
+
 
 def eliminar_tarea(tareas):
     ver_tareas(tareas)
