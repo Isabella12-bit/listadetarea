@@ -3,7 +3,8 @@ def mostrar_menu():
     print("1. Agregar tarea")
     print("2. Eliminar tarea")
     print("3. Ver tareas")
-    print("4. Salir")
+    print("4. Marcar tarea como completada")
+    print("5. Salir")
 
 def agregar_tarea(tareas):
     tarea = input("Ingrese la tarea: ").strip()
@@ -26,16 +27,29 @@ def eliminar_tarea(tareas):
     except ValueError:
         print("Entrada no válida.")
 
-# Función para ver las tareas
 def ver_tareas(tareas):
     if tareas:
         print("\nTareas pendientes:")
         for idx, tarea in enumerate(tareas, 1):
-            print(f"{idx}. {tarea}")
+            estado = "Completada" if tarea["completada"] else "Pendiente"
+            print(f"{idx}. {tarea['tarea']} - {estado}")
     else:
         print("No hay tareas pendientes.")
 
-# Función principal
+def marcar_completada(tareas):
+    ver_tareas(tareas)
+    try:
+        tarea_completada = int(input("Ingrese el número de la tarea a marcar como completada: "))
+        if 0 < tarea_completada <= len(tareas):
+            tareas[tarea_completada - 1]["completada"] = True
+            print(f"Tarea '{tareas[tarea_completada - 1]['tarea']}' marcada como completada.")
+            ver_tareas(tareas)
+        else:
+            print("Número de tarea inválido.")
+    except ValueError:
+        print("Entrada no válida.")
+
+
 def main():
     tareas = []
     while True:
@@ -49,8 +63,7 @@ def main():
         elif opcion == "3":
             ver_tareas(tareas)
         elif opcion == "4":
-            print("¡Hasta luego!")
-            break
+            marcar_completada(tareas)
         else:
             print("Opción no válida. Por favor intente de nuevo.")
 
